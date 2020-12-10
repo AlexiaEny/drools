@@ -1,7 +1,12 @@
-package plausibcheck.adress
-rule "Postcode should be filled with exactly 5 numbers"
+package plausibcheck.adress;
 
+import com.secbro.drools.model.Address;
+
+rule "Postcode should be filled with exactly 5 numbers"
     when
+        $a: Address(postcode.length() == 5)
     then
-		System.out.println("logs in rule ：check success!");
+        $a.setState("logs in rule ：check success!");
+        $a.setPostCodeResult(true);
+        update($a);
 end

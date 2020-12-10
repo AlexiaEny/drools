@@ -42,7 +42,16 @@ public class ReloadDroolsRules {
 
     private String loadRules() {
         // 从数据库加载的规则
-        return "package plausibcheck.adress\n\n rule \"Postcode 6 numbers\"\n\n    when\n  then\n        System.out.println(\"规则2中打印日志：校验通过!\");\n end";
+        return "package plausibcheck.adress\n\n  " +
+                "import com.secbro.drools.model.Address;" +
+                "\n\n rule \"Classify Address for Right Site\"\n\n    " +
+                "when\n    " +
+                "$a: Address(postcode.length() == 6)\n  " +
+                "then\n        " +
+                "$a.setState(\"logs in rule ：check success!\");\n        " +
+                "$a.setPostCodeResult(true);\n        " +
+                "update($a);\n " +
+                "end";
 
     }
 
